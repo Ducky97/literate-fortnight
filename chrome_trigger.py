@@ -8,35 +8,6 @@ from selenium import webdriver
 from multiprocessing import Pool
 from selenium.webdriver.support.ui import WebDriverWait
 
-
-
-# driver = webdriver.Chrome()
-# driver.get("https://c.zju.edu.cn/webapps/login/")
-# time.sleep(20)
-# html = driver.page_source
-# print(html)
-# doc = pq(html)
-# pd_ele = doc.find("input[type='password']")
-# if pd_ele:
-#     print("Yes!")
-# else:
-#     print("No!")
-
-# def spider(url):
-#     driver = webdriver.Chrome()
-#     driver.get(url)
-#     driver.close()
-#     driver.quit()
-#
-# def run():
-#     urls = ["https://dagyy.v.zzu.edu.cn/login", "https://mail.v.zzu.edu.cn",
-#            "https://uts.zuel.edu.cn/Home/studentCommon/studentLogin.jsp"]
-#     pool = Pool(len(urls))
-#     result = pool.map(spider, urls)
-#     pool.close()
-#     pool.join()
-#     return 0
-
 urls = ["https://dagyy.v.zzu.edu.cn/login",
      "https://mail.v.zzu.edu.cn",
      "https://uts.zuel.edu.cn/Home/studentCommon/studentLogin.jsp",
