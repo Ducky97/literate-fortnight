@@ -1,4 +1,5 @@
 import unittest
+import os
 import re
 import time
 import asyncio
@@ -9,7 +10,7 @@ from selenium import webdriver
 from multiprocessing import Pool
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
+import selenium.webdriver.support.expected_conditions as EC
 
 
 
@@ -25,13 +26,24 @@ urls = [
 ]
 
 
+# async def wrt(url):
+#     global school_name, bf_file
+#     if url not in bf_file:
+#         bf_file.add(url)
+#         async with aiofiles.open(school_name + "_login_url.txt", 'a+') as afp:
+#             print("Login find! Url: {}".format(url))
+#             await afp.write(url)
 def wrt(url):
-    global school_name, bf_file
-    if url not in bf_file:
-        bf_file.add(url)
-        f_w = open(school_name + "_login_url.txt", 'a+')
-        f_w.write(url)
-        print("Login find! Url: {}".format(url))
+    print("hi1")
+    try:
+        if not url in bf_file:
+            print("hi2")
+            bf_file.add(url)
+            f_w = open(school_name + "_login_url.txt", 'a+')
+            f_w.write(url)
+            print("Login find! Url: {}".format(url))
+    finally:
+        f_w.close()
 
 def Extractor(url):
     # print(url)
@@ -55,9 +67,7 @@ def spider_sub_page(link):
         WebDriverWait(driver_s, 10).until(
             EC.presence_of_element_located((By.XPATH, "//input[@type='password']"))
         )
-        # print("find!! {}".format(driver_s.current_url))
-        print('hello')
-        wrt(driver_s.current_url)
+        return driver_s.current_url
     finally:
         driver_s.close()
         driver_s.quit()
@@ -104,7 +114,6 @@ async def spider_one_page(url):
             WebDriverWait(driver, 10, ignored_exceptions=True).until(
                 EC.presence_of_element_located((By.XPATH, "//input[@type='password']"))
             )
-            # print("find!! {}".format(driver.current_url))
             wrt(driver.current_url)
         finally:
             links = get_sub_links(driver, url)
@@ -118,7 +127,7 @@ async def spider_one_page(url):
                     continue
                 else:
                    bf_ready.add(Extractor(link))
-                   ret = pool.apply_async(spider_sub_page, args=(link,))
+                   ret = pool.apply_async(spider_sub_page, args=(link,), callback=wrt)
                    ret_lis.append(ret)
             pool.close()
             pool.join()
