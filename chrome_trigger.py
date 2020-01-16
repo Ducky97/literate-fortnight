@@ -25,14 +25,6 @@ urls = [
     "https://id.tsinghua.edu.cn/"
 ]
 
-
-# async def wrt(url):
-#     global school_name, bf_file
-#     if url not in bf_file:
-#         bf_file.add(url)
-#         async with aiofiles.open(school_name + "_login_url.txt", 'a+') as afp:
-#             print("Login find! Url: {}".format(url))
-#             await afp.write(url)
 def wrt(url):
     print("hi1")
     try:
