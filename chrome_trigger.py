@@ -25,13 +25,6 @@ urls = [
 ]
 
 
-# async def wrt(url):
-#     global school_name, bf_file
-#     if url not in bf_file:
-#         bf_file.add(url)
-#         async with aiofiles.open(school_name + "_login_url.txt", 'a+') as afp:
-#             print("Login find! Url: {}".format(url))
-#             await afp.write(url)
 def wrt(url):
     global school_name, bf_file
     if url not in bf_file:
@@ -59,10 +52,8 @@ def spider_sub_page(link):
     # driver_s.set_script_timeout(10)
     driver_s.get(link)
     try:
-        class ec(EC):
-            pass
-        WebDriverWait(driver_s, 10, ).until(
-            ec.presence_of_element_located((By.XPATH, "//input[@type='password']"))
+        WebDriverWait(driver_s, 10).until(
+            EC.presence_of_element_located((By.XPATH, "//input[@type='password']"))
         )
         # print("find!! {}".format(driver_s.current_url))
         print('hello')
@@ -110,10 +101,8 @@ async def spider_one_page(url):
         print(url)
         driver.get(url)
         try:
-            class ec(EC):
-                pass
             WebDriverWait(driver, 10, ignored_exceptions=True).until(
-                ec.presence_of_element_located((By.XPATH, "//input[@type='password']"))
+                EC.presence_of_element_located((By.XPATH, "//input[@type='password']"))
             )
             # print("find!! {}".format(driver.current_url))
             wrt(driver.current_url)
