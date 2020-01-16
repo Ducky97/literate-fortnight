@@ -82,17 +82,6 @@ def get_sub_links(driver, url):
     except:
         return
 
-# def check(driver):
-#     print("now, checking {}".format(driver.current_url))
-#     doc = driver.page_source
-#     html = etree.HTML(doc)
-#     # 查找login
-#     login = html.xpath("//input[@type='password']")
-#     if login:
-#         print("find!!, {}".format(driver.current_url))
-#     else:
-#         print("no!")
-
 
 async def spider_one_page(url):
     global bf_ready, option, school_name
